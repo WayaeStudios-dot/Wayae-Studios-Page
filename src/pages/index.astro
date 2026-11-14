@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 const chapters = ['africa','asia','europe','north_america','south_america','australia','polar','oceans'];
 const pillars = [
   ['🎮', 'Games first', 'We design and build mobile and PC games that are genuinely fun to play.', 'c1'],
@@ -17,20 +18,20 @@ const soon = [
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="/app-icon.png" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href={`${base}app-icon.png`} />
+  <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
   <title>Wayae Studios</title>
   <meta name="description" content="Wayae Studios makes playful mobile and PC games with learning built in. Now playing: Paper Zoo." />
   <meta property="og:title" content="Wayae Studios" />
   <meta property="og:description" content="Playful mobile and PC games with learning built in." />
-  <meta property="og:image" content="/paper-zoo-logo.png" />
+  <meta property="og:image" content={`https://wayaestudios-dot.github.io${base}paper-zoo-logo.png`} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
   <header class="nav">
-    <a class="brand" href="#top"><img src="/wayae-logo.png" alt="Wayae Studios" /></a>
+    <a class="brand" href="#top"><img src={`${base}wayae-logo.png`} alt="Wayae Studios" /></a>
     <nav>
       <a href="#about">About</a>
       <a href="#games">Games</a>
@@ -64,7 +65,7 @@ const soon = [
 
       <article class="featured">
         <div class="f-art">
-          <img src="/paper-zoo-logo.png" alt="Paper Zoo: Animal Memory Match" />
+          <img src={`${base}paper-zoo-logo.png`} alt="Paper Zoo: Animal Memory Match" />
         </div>
         <div class="f-body">
           <span class="pill green">Current project</span>
@@ -78,7 +79,7 @@ const soon = [
           <span class="btn orange">Coming soon to Android</span>
         </div>
         <div class="strip">
-          {chapters.map((c) => (<img src={`/scenes/${c}.jpg`} alt="" loading="lazy" />))}
+          {chapters.map((c) => (<img src={`${base}scenes/${c}.jpg`} alt="" loading="lazy" />))}
         </div>
       </article>
 
