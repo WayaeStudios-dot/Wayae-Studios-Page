@@ -24,7 +24,7 @@ const soon = [
   <meta name="description" content="Wayae Studios makes playful mobile and PC games with learning built in. Now playing: Paper Zoo." />
   <meta property="og:title" content="Wayae Studios" />
   <meta property="og:description" content="Playful mobile and PC games with learning built in." />
-  <meta property="og:image" content={`https://wayaestudios-dot.github.io${base}paper-zoo-logo.png`} />
+  <meta property="og:image" content={`${Astro.site ? Astro.site.origin : ''}${base}paper-zoo-logo.png`} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
