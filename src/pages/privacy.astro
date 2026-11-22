@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+---
+<Base title="Privacy Policy | Wayae Studios" description="How Wayae Studios handles your information on this website and in our games.">
+  <main class="page">
+    <h1>Privacy Policy</h1>
+    <p class="meta">Last updated: 23 November 2026</p>
+
+    <p>Wayae Studios ("we", "us") makes mobile and PC games, including Paper Zoo. This policy explains what information is handled when you visit this website or play our games.</p>
+
+    <h2>This website</h2>
+    <p>Our website is a static site. We do not ask you to create an account and we do not run advertising trackers on it. The site loads the Fredoka typeface from Google Fonts, so your browser connects to Google's servers to fetch it, and Google may receive your IP address as part of that request. Our hosting provider may also keep standard server logs (such as IP address, browser type and pages requested) for security and reliability.</p>
+
+    <h2>Our games</h2>
+    <p>Paper Zoo is currently in internal testing on Android. We do not knowingly collect your name, email address, precise location or contact list through the game. Game progress such as stars and unlocked levels is stored on your device. If the app is distributed through Google Play, Google may provide us with aggregated and anonymous technical data, such as crash reports and device models, to help us fix problems. If this changes, for example by adding analytics or advertising, we will update this policy before the change goes live.</p>
+
+    <h2>Children</h2>
+    <p>Our games are made to be family friendly. We do not knowingly collect personal information from children. If you believe a child has given us personal information, contact us and we will delete it.</p>
+
+    <h2>Contacting us by email</h2>
+    <p>If you email us, we use your address and message only to reply to you and do not share them with third parties for marketing.</p>
+
+    <h2>Third-party services</h2>
+    <p>Google Play, Google Fonts and our hosting provider have their own privacy policies, which govern how they handle data.</p>
+
+    <h2>Your choices</h2>
+    <p>You can ask us what information we hold about you, or ask us to delete it, by contacting us. You can remove all local game data at any time by clearing the app's storage or uninstalling it.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy from time to time. The date at the top shows when it last changed.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about privacy? Email <a href="mailto:trivutam@gmail.com">trivutam@gmail.com</a>.</p>
+
+    <p class="meta"><a href={base}>← Back home</a></p>
+  </main>
+</Base>
