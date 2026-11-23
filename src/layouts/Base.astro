@@ -2,6 +2,7 @@
 interface Props { title?: string; description?: string; }
 const { title = 'Wayae Studios', description = 'Wayae Studios makes playful mobile and PC games with learning built in. Now in internal testing: Paper Zoo.' } = Astro.props;
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+const gtmId = 'GTM-KXXWXXJR';
 ---
 <!doctype html>
 <html lang="en">
@@ -18,8 +19,24 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script is:inline define:vars={{ gtmId }}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    var granted = false;
+    try { granted = localStorage.getItem('cookie-consent') === 'granted'; } catch (e) {}
+    gtag('consent', 'default', {
+      ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+      analytics_storage: granted ? 'granted' : 'denied', wait_for_update: 500
+    });
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtmId;
+    document.head.appendChild(s);
+  </script>
 </head>
 <body>
+  <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`} height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <header class="nav">
     <a class="brand" href={base}><img src={`${base}wayae-logo.png`} alt="Wayae Studios" /></a>
     <nav>
@@ -31,8 +48,33 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
   </header>
   <slot />
   <footer>
-    <a href={`${base}privacy/`}>Privacy Policy</a> · © {new Date().getFullYear()} Wayae Studios
+    <a href={`${base}privacy/`}>Privacy Policy</a> · <a href="#" id="cookie-settings">Cookie settings</a> · © {new Date().getFullYear()} Wayae Studios
   </footer>
+  <div id="cookie-banner" class="cookie" role="dialog" aria-label="Cookie consent" hidden>
+    <p>We use cookies for anonymous analytics to see how the site is used. Is that OK? See our <a href={`${base}privacy/`}>Privacy Policy</a>.</p>
+    <div class="cookie-btns">
+      <button type="button" class="btn pink" data-consent="granted">Accept</button>
+      <button type="button" class="btn ghost" data-consent="denied">Decline</button>
+    </div>
+  </div>
+  <script is:inline>
+    (function () {
+      var banner = document.getElementById('cookie-banner');
+      var stored = null;
+      try { stored = localStorage.getItem('cookie-consent'); } catch (e) {}
+      if (!stored) banner.hidden = false;
+      function set(v) {
+        try { localStorage.setItem('cookie-consent', v); } catch (e) {}
+        gtag('consent', 'update', { analytics_storage: v });
+        banner.hidden = true;
+      }
+      banner.addEventListener('click', function (e) {
+        var v = e.target.getAttribute && e.target.getAttribute('data-consent');
+        if (v) set(v);
+      });
+      document.getElementById('cookie-settings').addEventListener('click', function (e) { e.preventDefault(); banner.hidden = false; });
+    })();
+  </script>
 </body>
 </html>
 
@@ -110,4 +152,9 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
   .post { margin-bottom:1.5rem; }
   .post time { font-size:.9rem; opacity:.7; }
   .post h2 { margin:.4rem 0 .5rem; }
+  .cookie { position:fixed; left:1rem; right:1rem; bottom:1rem; max-width:620px; margin:0 auto; z-index:10; background:#fff; border:3px solid var(--ink); border-radius:20px; box-shadow:0 6px 0 var(--ink); padding:1rem 1.25rem; display:flex; gap:1rem; align-items:center; flex-wrap:wrap; }
+  .cookie[hidden] { display:none; }
+  .cookie p { margin:0; flex:1 1 260px; font-size:.95rem; }
+  .cookie-btns { display:flex; gap:.5rem; }
+  .cookie .btn { font:inherit; font-weight:700; padding:.4rem 1.1rem; cursor:pointer; }
 </style>
