@@ -22,12 +22,19 @@ const gtmId = 'GTM-KXXWXXJR';
   <script is:inline define:vars={{ gtmId }}>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
-    var granted = false;
-    try { granted = localStorage.getItem('cookie-consent') === 'granted'; } catch (e) {}
-    gtag('consent', 'default', {
-      ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
-      analytics_storage: granted ? 'granted' : 'denied', wait_for_update: 500
-    });
+    var choice = null;
+    try { choice = localStorage.getItem('cookie-consent'); } catch (e) {}
+    var noAds = { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
+    // EEA, UK and Switzerland: analytics off until the visitor accepts.
+    gtag('consent', 'default', Object.assign({}, noAds, {
+      analytics_storage: choice === 'granted' ? 'granted' : 'denied',
+      region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],
+      wait_for_update: 500
+    }));
+    // Everywhere else: analytics on unless the visitor declined.
+    gtag('consent', 'default', Object.assign({}, noAds, {
+      analytics_storage: choice === 'denied' ? 'denied' : 'granted'
+    }));
     window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
     var s = document.createElement('script');
     s.async = true;
@@ -51,7 +58,7 @@ const gtmId = 'GTM-KXXWXXJR';
     <a href={`${base}privacy/`}>Privacy Policy</a> · <a href="#" id="cookie-settings">Cookie settings</a> · © {new Date().getFullYear()} Wayae Studios
   </footer>
   <div id="cookie-banner" class="cookie" role="dialog" aria-label="Cookie consent" hidden>
-    <p>We use cookies for anonymous analytics to see how the site is used. Is that OK? See our <a href={`${base}privacy/`}>Privacy Policy</a>.</p>
+    <p>We use cookies for anonymous analytics to see how the site is used. You can switch them off at any time. See our <a href={`${base}privacy/`}>Privacy Policy</a>.</p>
     <div class="cookie-btns">
       <button type="button" class="btn pink" data-consent="granted">Accept</button>
       <button type="button" class="btn ghost" data-consent="denied">Decline</button>
