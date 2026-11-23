@@ -4,14 +4,14 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 const chapters = ['africa','asia','europe','north_america','south_america','australia','polar','oceans'];
 const pillars = [
   ['controller.png', 'Games first', 'We design and build mobile and PC games that are genuinely fun to play.', 'c1'],
-  ['', 'Learning built in', 'Memory, geography, nature and more, woven into the play instead of bolted on.', 'c2'],
-  ['', 'Handcrafted', 'Bright, tactile art and cosy sound, made with care by a small team.', 'c3'],
-  ['', 'Mobile and PC', 'Android today, with PC and more platforms on the way.', 'c4'],
+  ['brain.png', 'Learning built in', 'Memory, geography, nature and more, woven into the play instead of bolted on.', 'c2'],
+  ['scissors.png', 'Handcrafted', 'Bright, tactile art and cosy sound, made with care by a small team.', 'c3'],
+  ['devices.png', 'Mobile and PC', 'Android today, with PC and more platforms on the way.', 'c4'],
 ];
 const soon = [
-  ['Project 2', 'c2'],
-  ['Project 3', 'c3'],
-  ['Project 4', 'c4'],
+  ['Project 2', 'c2', 'placeholders/puzzle.svg'],
+  ['Project 3', 'c3', 'placeholders/rocket.svg'],
+  ['Project 4', 'c4', 'placeholders/brush.svg'],
 ];
 ---
 <Base>
@@ -60,8 +60,9 @@ const soon = [
       </article>
 
       <div class="soon">
-        {soon.map(([t, c]) => (
+        {soon.map(([t, c, img]) => (
           <article class={`card soon-card ${c}`}>
+            <img class="icon-img" src={`${base}${img}`} alt="" />
             <h3>{t}</h3>
             <span class="pill">Coming soon</span>
           </article>
